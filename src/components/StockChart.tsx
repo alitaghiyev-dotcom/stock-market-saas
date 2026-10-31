@@ -93,16 +93,16 @@ export const StockChart: React.FC<StockChartProps> = ({
   const gradientId = `chartGrad-${stock.symbol}`;
 
   return (
-    <div className="bg-[#121215] border border-zinc-800/70 rounded-xl p-5 relative overflow-hidden">
-      {/* Chart Top Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-4 pb-4 border-b border-zinc-800/60">
-        <div className="flex items-center gap-3">
-          <div className="flex items-baseline gap-2.5">
-            <span className="text-2xl sm:text-3xl font-semibold tracking-tight text-white font-mono">
+    <div className="bg-[#121215] border border-zinc-800/70 rounded-xl p-3.5 sm:p-5 relative overflow-hidden">
+      {/* Chart Top Controls - Responsive Wrap */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 sm:mb-4 pb-3 border-b border-zinc-800/60">
+        <div className="flex items-center justify-between sm:justify-start gap-2.5">
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl sm:text-3xl font-semibold tracking-tight text-white font-mono">
               ${activePoint?.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
             <div
-              className={`flex items-center gap-1 font-mono text-xs font-medium ${
+              className={`flex items-center gap-0.5 font-mono text-[11px] sm:text-xs font-medium ${
                 currentDiff >= 0 ? 'text-emerald-400' : 'text-rose-400'
               }`}
             >
@@ -110,40 +110,37 @@ export const StockChart: React.FC<StockChartProps> = ({
               <span>({currentDiffPercent >= 0 ? `+${currentDiffPercent.toFixed(2)}` : currentDiffPercent.toFixed(2)}%)</span>
             </div>
           </div>
-          {hoverIndex !== null && (
-            <span className="text-[11px] text-zinc-400 font-mono bg-zinc-800 px-2 py-0.5 rounded">
-              {activePoint.time}
-            </span>
-          )}
           {isLiveTicking && (
-            <span className="inline-flex items-center gap-1.5 text-[10px] text-zinc-400 font-mono pl-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span className="inline-flex items-center gap-1 text-[10px] text-zinc-400 font-mono">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               LIVE
             </span>
           )}
         </div>
 
-        {/* Minimal Indicators & Timeframes */}
-        <div className="flex items-center flex-wrap gap-2 text-xs">
-          <button
-            onClick={() => setShowMA(!showMA)}
-            className={`px-2 py-1 rounded font-mono text-[11px] transition ${
-              showMA ? 'bg-zinc-800 text-amber-300 font-medium' : 'text-zinc-500 hover:text-zinc-300'
-            }`}
-          >
-            MA 20
-          </button>
+        {/* Minimal Indicators & Timeframes - Touch Friendly */}
+        <div className="flex items-center justify-between sm:justify-end gap-1.5 text-xs overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setShowMA(!showMA)}
+              className={`px-2 py-0.5 sm:py-1 rounded font-mono text-[10px] sm:text-[11px] transition ${
+                showMA ? 'bg-zinc-800 text-amber-300 font-medium' : 'text-zinc-500 hover:text-zinc-300'
+              }`}
+            >
+              MA20
+            </button>
 
-          <button
-            onClick={() => setShowVolume(!showVolume)}
-            className={`px-2 py-1 rounded font-mono text-[11px] transition ${
-              showVolume ? 'bg-zinc-800 text-zinc-200 font-medium' : 'text-zinc-500 hover:text-zinc-300'
-            }`}
-          >
-            VOL
-          </button>
+            <button
+              onClick={() => setShowVolume(!showVolume)}
+              className={`px-2 py-0.5 sm:py-1 rounded font-mono text-[10px] sm:text-[11px] transition ${
+                showVolume ? 'bg-zinc-800 text-zinc-200 font-medium' : 'text-zinc-500 hover:text-zinc-300'
+              }`}
+            >
+              VOL
+            </button>
+          </div>
 
-          <div className="h-4 w-px bg-zinc-800 mx-1" />
+          <div className="h-3 w-px bg-zinc-800 mx-0.5" />
 
           {/* Timeframe Controls */}
           <div className="flex bg-zinc-900 border border-zinc-800 rounded-lg p-0.5">
@@ -151,7 +148,7 @@ export const StockChart: React.FC<StockChartProps> = ({
               <button
                 key={tf}
                 onClick={() => setTimeframe(tf)}
-                className={`px-2.5 py-1 text-[11px] font-medium rounded-md transition ${
+                className={`px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-medium rounded transition ${
                   timeframe === tf
                     ? 'bg-zinc-800 text-white shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-200'
@@ -186,9 +183,9 @@ export const StockChart: React.FC<StockChartProps> = ({
         </div>
       </div>
 
-      {/* Main SVG Canvas */}
+      {/* Main SVG Canvas - Dynamic height on mobile */}
       <div
-        className="relative w-full h-[300px] select-none cursor-crosshair"
+        className="relative w-full h-[220px] sm:h-[300px] select-none cursor-crosshair touch-pan-x"
         onMouseLeave={() => setHoverIndex(null)}
         onMouseMove={(e) => {
           const rect = e.currentTarget.getBoundingClientRect();
@@ -196,6 +193,15 @@ export const StockChart: React.FC<StockChartProps> = ({
           const ratio = mouseX / rect.width;
           const idx = Math.round(ratio * (data.length - 1));
           setHoverIndex(Math.max(0, Math.min(idx, data.length - 1)));
+        }}
+        onTouchMove={(e) => {
+          if (e.touches.length > 0) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const touchX = Math.max(0, Math.min(e.touches[0].clientX - rect.left, rect.width));
+            const ratio = touchX / rect.width;
+            const idx = Math.round(ratio * (data.length - 1));
+            setHoverIndex(Math.max(0, Math.min(idx, data.length - 1)));
+          }
         }}
       >
         <svg
@@ -215,7 +221,7 @@ export const StockChart: React.FC<StockChartProps> = ({
 
           <rect width={width} height={chartHeight} fill="url(#grid)" />
 
-          {/* Subtle Price Level Reference Lines */}
+          {/* Reference Price Lines */}
           {[0.25, 0.5, 0.75].map((pct) => {
             const price = minPrice + priceRange * pct;
             const y = chartHeight - pct * chartHeight;
@@ -355,30 +361,29 @@ export const StockChart: React.FC<StockChartProps> = ({
           )}
         </svg>
 
-        <div className="absolute bottom-0 left-0 right-0 flex justify-between text-[10px] text-zinc-500 font-mono px-2">
+        <div className="absolute bottom-0 left-0 right-0 flex justify-between text-[10px] text-zinc-500 font-mono px-1">
           <span>{data[0]?.time}</span>
-          <span>{data[Math.floor(data.length / 2)]?.time}</span>
           <span>{data[data.length - 1]?.time}</span>
         </div>
       </div>
 
-      {/* Chart Footer Stats */}
-      <div className="mt-3 pt-3 border-t border-zinc-800/60 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+      {/* Chart Footer Stats - Mobile 2x2 grid */}
+      <div className="mt-2.5 pt-2.5 border-t border-zinc-800/60 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
         <div>
-          <span className="text-zinc-400 block text-[11px]">Open</span>
-          <span className="font-mono text-zinc-200">${stock.open.toFixed(2)}</span>
+          <span className="text-zinc-500 block text-[10px]">Open</span>
+          <span className="font-mono text-zinc-200 text-[11px] sm:text-xs">${stock.open.toFixed(2)}</span>
         </div>
         <div>
-          <span className="text-zinc-400 block text-[11px]">Day High</span>
-          <span className="font-mono text-zinc-200">${stock.high.toFixed(2)}</span>
+          <span className="text-zinc-500 block text-[10px]">High</span>
+          <span className="font-mono text-zinc-200 text-[11px] sm:text-xs">${stock.high.toFixed(2)}</span>
         </div>
         <div>
-          <span className="text-zinc-400 block text-[11px]">Day Low</span>
-          <span className="font-mono text-zinc-200">${stock.low.toFixed(2)}</span>
+          <span className="text-zinc-500 block text-[10px]">Low</span>
+          <span className="font-mono text-zinc-200 text-[11px] sm:text-xs">${stock.low.toFixed(2)}</span>
         </div>
         <div>
-          <span className="text-zinc-400 block text-[11px]">Volume</span>
-          <span className="font-mono text-zinc-200">{stock.volume}</span>
+          <span className="text-zinc-500 block text-[10px]">Vol</span>
+          <span className="font-mono text-zinc-200 text-[11px] sm:text-xs">{stock.volume}</span>
         </div>
       </div>
     </div>

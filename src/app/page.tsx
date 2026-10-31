@@ -44,7 +44,7 @@ export default function Home() {
   };
 
   const handleSetAlert = () => {
-    setAlertNotification(`Price alert configured for ${currentStock.symbol} at $${(currentStock.price * 1.02).toFixed(2)}`);
+    setAlertNotification(`Alert set for ${currentStock.symbol} at $${(currentStock.price * 1.02).toFixed(2)}`);
     setTimeout(() => {
       setAlertNotification(null);
     }, 3500);
@@ -116,29 +116,54 @@ export default function Home() {
 
       {/* Toast Alert */}
       {alertNotification && (
-        <div className="fixed top-16 right-6 z-50 bg-[#18181c] border border-zinc-700 p-3 rounded-lg flex items-center gap-2.5 text-xs animate-fadeIn shadow-lg">
+        <div className="fixed top-14 sm:top-16 right-3 sm:right-6 z-50 bg-[#18181c] border border-zinc-700 p-2.5 sm:p-3 rounded-lg flex items-center gap-2 text-xs animate-fadeIn shadow-lg">
           <Bell size={13} className="text-zinc-300" />
           <span className="text-zinc-200 font-mono text-[11px]">{alertNotification}</span>
         </div>
       )}
 
       {/* Main Container */}
-      <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 sm:p-6 space-y-4">
+      <main className="flex-1 max-w-[1600px] w-full mx-auto p-3 sm:p-6 space-y-3 sm:space-y-4">
         {/* VIEW 1: TERMINAL */}
         {activeTab === 'terminal' && (
-          <div className="space-y-4 animate-fadeIn">
-            {/* Minimalist Stock Header */}
-            <div className="bg-[#121215] border border-zinc-800/70 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-xs font-bold font-mono text-white">
+          <div className="space-y-3 sm:space-y-4 animate-fadeIn">
+            {/* Quick Horizontal Asset Bar on Mobile (Crucial for Mobile UX!) */}
+            <div className="lg:hidden flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+              {Object.values(stocks).map((s) => {
+                const isSelected = s.symbol === selectedSymbol;
+                const isUp = s.changePercent >= 0;
+                return (
+                  <button
+                    key={s.symbol}
+                    onClick={() => setSelectedSymbol(s.symbol)}
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs whitespace-nowrap transition ${
+                      isSelected
+                        ? 'bg-zinc-800 border-zinc-600 text-white shadow-xs font-semibold'
+                        : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:text-zinc-200'
+                    }`}
+                  >
+                    <span className="font-mono">{s.symbol}</span>
+                    <span className="font-mono text-[11px] text-zinc-300">${s.price.toFixed(1)}</span>
+                    <span className={`font-mono text-[10px] ${isUp ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      {isUp ? `+${s.changePercent.toFixed(1)}%` : `${s.changePercent.toFixed(1)}%`}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Stock Header */}
+            <div className="bg-[#121215] border border-zinc-800/70 rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3.5">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-xs font-bold font-mono text-white">
                   {currentStock.symbol.slice(0, 3)}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <h1 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <h1 className="text-base sm:text-xl font-semibold text-white tracking-tight">
                       {currentStock.name}
                     </h1>
-                    <span className="text-xs bg-zinc-800 text-zinc-300 font-mono font-medium px-1.5 py-0.5 rounded">
+                    <span className="text-[11px] sm:text-xs bg-zinc-800 text-zinc-300 font-mono font-medium px-1.5 py-0.5 rounded">
                       {currentStock.symbol}
                     </span>
                     <button
@@ -147,27 +172,27 @@ export default function Home() {
                       className="text-zinc-600 hover:text-amber-400 transition"
                     >
                       <Star
-                        size={15}
+                        size={14}
                         className={isCurrentStarred ? 'fill-amber-400 text-amber-400' : ''}
                       />
                     </button>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-zinc-400 mt-0.5">
+                  <div className="flex items-center gap-2 text-[11px] sm:text-xs text-zinc-400 mt-0.5">
                     <span>{currentStock.sector}</span>
                     <span className="text-zinc-600">•</span>
-                    <span className="font-mono text-[11px]">NASDAQ / NYSE</span>
+                    <span className="font-mono text-[10px] sm:text-[11px]">NASDAQ</span>
                   </div>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 self-end sm:self-auto">
                 <button
                   onClick={handleSetAlert}
-                  className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-medium px-3 py-1.5 rounded-lg transition"
+                  className="flex items-center gap-1 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-medium px-2.5 py-1.5 rounded-lg transition"
                 >
-                  <Bell size={13} className="text-zinc-400" />
-                  <span>Set Alert</span>
+                  <Bell size={12} className="text-zinc-400" />
+                  <span>Alert</span>
                 </button>
 
                 <button
@@ -180,9 +205,9 @@ export default function Home() {
             </div>
 
             {/* 3-Column Core Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-              {/* Left Column: Watchlist */}
-              <div className="lg:col-span-3">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 items-start">
+              {/* Left Column: Watchlist (Desktop only, mobile uses the top horizontal bar!) */}
+              <div className="hidden lg:block lg:col-span-3">
                 <Watchlist
                   stocks={stocks}
                   selectedSymbol={selectedSymbol}
@@ -194,7 +219,7 @@ export default function Home() {
               </div>
 
               {/* Center Column: Interactive Chart */}
-              <div className="lg:col-span-9 xl:col-span-6 space-y-4">
+              <div className="lg:col-span-9 xl:col-span-6 space-y-3 sm:space-y-4">
                 <StockChart
                   stock={currentStock}
                   timeframe={timeframe}
@@ -203,27 +228,27 @@ export default function Home() {
                 />
 
                 {/* Fundamental Metrics */}
-                <div className="bg-[#121215] border border-zinc-800/70 rounded-xl p-4">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2.5">
+                <div className="bg-[#121215] border border-zinc-800/70 rounded-xl p-3 sm:p-4">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
                     Valuation &amp; Fundamentals
                   </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                    <div className="bg-zinc-900/50 p-2.5 rounded-lg border border-zinc-800/50">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 text-xs">
+                    <div className="bg-zinc-900/50 p-2 sm:p-2.5 rounded-lg border border-zinc-800/50">
                       <span className="text-zinc-400 block text-[10px] uppercase font-mono">Market Cap</span>
                       <span className="font-mono font-medium text-white text-xs">{currentStock.marketCap}</span>
                     </div>
 
-                    <div className="bg-zinc-900/50 p-2.5 rounded-lg border border-zinc-800/50">
+                    <div className="bg-zinc-900/50 p-2 sm:p-2.5 rounded-lg border border-zinc-800/50">
                       <span className="text-zinc-400 block text-[10px] uppercase font-mono">P/E Ratio</span>
                       <span className="font-mono font-medium text-white text-xs">{currentStock.peRatio || 'N/A'}</span>
                     </div>
 
-                    <div className="bg-zinc-900/50 p-2.5 rounded-lg border border-zinc-800/50">
+                    <div className="bg-zinc-900/50 p-2 sm:p-2.5 rounded-lg border border-zinc-800/50">
                       <span className="text-zinc-400 block text-[10px] uppercase font-mono">52W High</span>
                       <span className="font-mono font-medium text-zinc-200 text-xs">${currentStock.week52High.toFixed(2)}</span>
                     </div>
 
-                    <div className="bg-zinc-900/50 p-2.5 rounded-lg border border-zinc-800/50">
+                    <div className="bg-zinc-900/50 p-2 sm:p-2.5 rounded-lg border border-zinc-800/50">
                       <span className="text-zinc-400 block text-[10px] uppercase font-mono">52W Low</span>
                       <span className="font-mono font-medium text-zinc-200 text-xs">${currentStock.week52Low.toFixed(2)}</span>
                     </div>
@@ -265,17 +290,17 @@ export default function Home() {
         {/* VIEW 3: AI INTELLIGENCE ROOM */}
         {activeTab === 'ai' && (
           <div className="max-w-4xl mx-auto animate-fadeIn space-y-3">
-            <div className="bg-[#121215] border border-zinc-800/70 rounded-xl p-4 flex items-center justify-between">
+            <div className="bg-[#121215] border border-zinc-800/70 rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h2 className="text-sm font-semibold text-white">Dedicated Intelligence Feed</h2>
                 <span className="text-xs text-zinc-400">Select asset to view automated NLP thesis</span>
               </div>
-              <div className="flex gap-1.5 flex-wrap">
+              <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
                 {Object.keys(stocks).map((sym) => (
                   <button
                     key={sym}
                     onClick={() => setSelectedSymbol(sym)}
-                    className={`px-2.5 py-1 text-xs font-mono rounded-md transition ${
+                    className={`px-2.5 py-1 text-xs font-mono rounded-md transition whitespace-nowrap ${
                       selectedSymbol === sym ? 'bg-zinc-100 text-zinc-950 font-medium' : 'bg-zinc-900 text-zinc-400 hover:text-white'
                     }`}
                   >
@@ -284,7 +309,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="h-[600px]">
+            <div className="min-h-[500px]">
               <AiAnalyst stock={currentStock} />
             </div>
           </div>
@@ -329,14 +354,14 @@ export default function Home() {
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-3 text-[11px]">
           <div className="flex items-center gap-2">
             <span className="text-zinc-300 font-medium">PulseTrade</span>
-            <span>• Innovation &amp; Entrepreneurship Project</span>
+            <span>• Innovation &amp; Entrepreneurship</span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button onClick={() => setActiveTab('proposal')} className="hover:text-zinc-300 transition">
-              Proposal Document
+              Proposal
             </button>
             <button onClick={() => setActiveTab('pricing')} className="hover:text-zinc-300 transition">
-              BMC Model
+              BMC
             </button>
             <span className="font-mono text-zinc-400">v2.0 MVP</span>
           </div>
