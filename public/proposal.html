@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Proposal - Real-Time Stock Market Tracking & Analytics Platform</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    @page {
+      size: A4;
+      margin: 14mm 16mm 14mm 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1e293b;
+      background: #ffffff;
+      line-height: 1.45;
+      font-size: 9.5pt;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header-banner {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .doc-meta {
+      font-size: 8pt;
+      color: #64748b;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.35;
+      text-align: right;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 7.5pt;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      font-size: 17pt;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      font-size: 9.5pt;
+      color: #475569;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    h2 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #0f172a;
+      border-left: 3px solid #2563eb;
+      padding-left: 8px;
+      margin-top: 13px;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin-bottom: 6px;
+      text-align: justify;
+    }
+
+    .highlight-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin: 8px 0;
+    }
+
+    .highlight-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      margin-left: 18px;
+      margin-bottom: 6px;
+    }
+
+    li {
+      margin-bottom: 3.5px;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin: 8px 0;
+    }
+
+    .tech-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 7px 10px;
+      background: #ffffff;
+    }
+
+    .tech-card strong {
+      display: block;
+      color: #0f172a;
+      font-size: 8.8pt;
+      margin-bottom: 2px;
+    }
+
+    .tech-card span {
+      font-size: 8pt;
+      color: #64748b;
+      line-height: 1.35;
+      display: block;
+    }
+
+    .tag-ai {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+    }
+
+    .tag-ai strong {
+      color: #7e22ce;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0;
+      font-size: 8.5pt;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .footer {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 7.5pt;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <div class="header-banner">
+    <div>
+      <span class="badge">Innovation & Entrepreneurship • Project Proposal</span>
+      <h1>Real-Time Stock Market Tracking & Analytics App</h1>
+      <div class="subtitle">AI-Powered Financial Intelligence Platform for Retail Investors & Analysts</div>
+    </div>
+    <div class="doc-meta">
+      Version: v2.0 (Refined)<br>
+      Scope: Full-Stack SaaS MVP
+    </div>
+  </div>
+
+  <h2>1. Executive Summary & Main Concept</h2>
+  <p>
+    This project is dedicated to building a high-performance, real-time stock tracking and portfolio management software as a service (SaaS) web application. Designed specifically for retail investors, finance students, and market analysts, the platform democratizes access to institutional-grade market data. By integrating real-time price feeds, dynamic interactive charting, and automated AI market sentiment analysis into a cohesive web interface, everyday users can make confident, data-driven financial decisions without purchasing expensive terminal subscriptions.
+  </p>
+
+  <h2>2. Purpose & Market Need (Problem-Solution Fit)</h2>
+  <p>
+    <strong>The Problem:</strong> Modern financial markets move dynamically in sub-second intervals. Retail investors face an uneven playing field: either relying on fragmented, 15-minute delayed free websites or paying exorbitant annual subscription fees for enterprise systems like Bloomberg Terminal or Refinitiv. Additionally, the sheer volume of financial news and SEC filings creates cognitive overload, leading to emotional, uncalculated trades.
+  </p>
+  <p>
+    <strong>Our Solution:</strong> Our platform bridges this disparity by centralizing streaming market quotes, interactive multi-timeframe charts, and automated AI analysis into a single responsive hub. By synthesizing raw data into digestible market signals, the platform empowers individual investors to adopt disciplined, methodical investment strategies at virtually zero friction.
+  </p>
+
+  <h2>3. Core Project Goals & Key Features</h2>
+  <ul>
+    <li><strong>Real-Time Stock Ticker & Price Feeds:</strong> Live price updates with visual momentum indicators (dynamic red/green flashing tickers) across major US equities and indices.</li>
+    <li><strong>Interactive Technical Charting:</strong> Responsive charting engine with multi-timeframe toggles (1D, 1W, 1M, 1Y, All) providing crystal-clear visualization of price trends and moving averages.</li>
+    <li><strong>Personalized Watchlists:</strong> Fast search and one-click pin system allowing users to curate and monitor custom portfolios effortlessly.</li>
+    <li><strong>Simulated Portfolio Tracking:</strong> Built-in portfolio manager computing real-time Profit & Loss (P&L), return on capital, and asset diversification metrics without requiring live bank connections.</li>
+    <li><strong>AI Market Sentiment & Catalysts:</strong> Automated AI-powered briefings synthesizing earnings releases, breaking news, and market momentum into concise Bullish/Bearish assessments.</li>
+  </ul>
+
+  <h2>4. Target Audience (Customer Segments)</h2>
+  <div class="highlight-box">
+    <ul>
+      <li><strong>Retail Investors:</strong> Independent everyday investors seeking real-time accuracy and intuitive tools to manage their personal assets.</li>
+      <li><strong>Financial Analysts & Researchers:</strong> Professionals requiring quick market centralization and AI-assisted summaries to accelerate valuation workflows.</li>
+      <li><strong>Finance Enthusiasts & Students:</strong> Learners needing a realistic, structured environment to practice portfolio construction and study technical market mechanics.</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box" style="margin-top: 10px; background: #f0fdf4; border-color: #bbf7d0;">
+    <strong style="color: #166534; font-size: 8.8pt;">Core Value Proposition:</strong>
+    <span style="font-size: 8.2pt; color: #15803d; display: block; margin-top: 2px;">
+      Replacing expensive institutional terminals with a lightweight, browser-based, AI-augmented analytical suite tailored for the modern retail investor.
+    </span>
+  </div>
+
+  <div class="footer">
+    <span>Real-Time Stock Market Tracking App — Project Proposal</span>
+    <span>Page 1 of 2</span>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page-break"></div>
+
+  <div class="header-banner" style="margin-bottom: 10px; padding-bottom: 6px;">
+    <div>
+      <h1 style="font-size: 13pt;">Technical Architecture & Business Model Alignment</h1>
+    </div>
+    <div class="doc-meta">
+      Section: Implementation & Commercial Strategy
+    </div>
+  </div>
+
+  <h2>5. Modern Technology Stack & System Architecture</h2>
+  <p>
+    The system is engineered entirely in <strong>TypeScript</strong> to ensure enterprise-grade type safety, scalability, and optimal web vitals:
+  </p>
+
+  <div class="tech-grid">
+    <div class="tech-card">
+      <strong>Next.js (App Router, TypeScript)</strong>
+      <span>Full-stack framework offering fast server-side rendering (SSR), high responsiveness, and optimized API route proxies for data caching.</span>
+    </div>
+
+    <div class="tech-card">
+      <strong>Tailwind CSS & Shadcn/UI</strong>
+      <span>Curated component design system delivering an ultra-modern, dark-mode financial terminal UI inspired by TradingView aesthetics.</span>
+    </div>
+
+    <div class="tech-card">
+      <strong>Financial APIs (Finnhub / Alpha Vantage)</strong>
+      <span>Reliable financial data feeds providing live quotes, technical candle intervals, historical metrics, and company overview profiles.</span>
+    </div>
+
+    <div class="tech-card">
+      <strong>MongoDB (Atlas) & Mongoose</strong>
+      <span>Flexible NoSQL document store managing user accounts, saved watchlists, custom alerts, and simulated portfolio allocations.</span>
+    </div>
+
+    <div class="tech-card">
+      <strong>Authentication (Secure Session Handling)</strong>
+      <span>Robust session management guaranteeing password encryption, protected dashboard routes, and segregated user data.</span>
+    </div>
+
+    <div class="tech-card">
+      <strong>Interactive Charting (Recharts Engine)</strong>
+      <span>High-performance SVG/Canvas charting library customized for responsive financial curves, tooltip inspections, and period filtering.</span>
+    </div>
+  </div>
+
+  <h2>6. AI Integration & Workflow Automation</h2>
+  <p>
+    Artificial Intelligence is integrated natively into both our product features and developer workflow:
+  </p>
+
+  <div class="tech-grid">
+    <div class="tech-card tag-ai">
+      <strong>Google Gemini / OpenAI API (AI Market Intelligence)</strong>
+      <span>Directly integrated into the dashboard to analyze price movement and recent news headlines, providing instant Bullish/Bearish sentiment ratings and actionable summaries on demand.</span>
+    </div>
+
+    <div class="tech-card tag-ai">
+      <strong>CodeRabbit (AI-Powered Code Reviews)</strong>
+      <span>Embedded in our GitHub workflow to perform automated security scans, optimize TypeScript performance, and maintain production-ready code quality across every feature branch.</span>
+    </div>
+  </div>
+
+  <h2>7. Business Model Canvas (BMC) Alignment</h2>
+  <p>
+    Our technical milestones directly map to the 9 building blocks of our Business Model Canvas:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 26%;">BMC Dimension</th>
+        <th style="width: 32%;">Strategic Approach</th>
+        <th>Revenue / Cost Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Revenue Streams</strong></td>
+        <td>Freemium model: Free tier gives standard charts & 5 watchlist stocks; Pro tier unlocks unlimited assets & AI deep-dives.</td>
+        <td>Predictable monthly/annual recurring subscription revenue (MRR/ARR).</td>
+      </tr>
+      <tr>
+        <td><strong>Affiliate Partnerships</strong></td>
+        <td>Contextual partnership links to regulated brokerages when users decide to execute actual trades.</td>
+        <td>Secondary revenue stream requiring zero balance sheet or custodial risk.</td>
+      </tr>
+      <tr>
+        <td><strong>Cost Structure</strong></td>
+        <td>Cloud hosting (Vercel), managed database (MongoDB Atlas), financial data licensing, and LLM token usage.</td>
+        <td>Highly scalable pay-as-you-grow serverless cost footprint with minimal fixed overhead.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>8. Expected Deliverables & Value Horizon</h2>
+  <p>
+    The tangible outcome of this project is a fully deployable, responsive web application showcasing real-time data streaming, clean analytical charting, and tangible AI intelligence. It establishes a viable commercial foundation capable of scaling into an active FinTech venture.
+  </p>
+
+  <div class="footer">
+    <span>Course: Innovation & Entrepreneurship • Academic Year 2026</span>
+    <span>Page 2 of 2</span>
+  </div>
+
+</body>
+</html>
